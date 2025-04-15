@@ -46,4 +46,4 @@ CONSOLE_ENABLE = yes # Console for debug
 SRC += lib/bmp/keyboard.c # Support bmp keyboard 
 POINTING_DEVICE_ENABLE = yes
 POINTING_DEVICE_DRIVER = custom
-SRC += drivers/pmw3360/bmp_pmw3360.c
+SRC += drivers/pmw3610/bmp_pmw3610.c

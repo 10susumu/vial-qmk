@@ -32,6 +32,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_USB_TIMEOUT       500
 #ifdef OLED_ENABLE
 #    define SPLIT_OLED_ENABLE
+#    define OLED_BRIGHTNESS 0
+#    define OLED_TIMEOUT 3000
+#    define OLED_UPDATE_INTERVAL 200
 #endif
 
 #define SPLIT_TRANSACTION_IDS_KB KEYBALL_GET_INFO, KEYBALL_GET_MOTION, KEYBALL_SET_CPI

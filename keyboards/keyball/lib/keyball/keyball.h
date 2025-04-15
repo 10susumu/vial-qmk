@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Configurations
 
 #ifndef KEYBALL_CPI_DEFAULT
-#    define KEYBALL_CPI_DEFAULT 500
+#    define KEYBALL_CPI_DEFAULT 400
 #endif
 
 #ifndef KEYBALL_SCROLL_DIV_DEFAULT
@@ -116,15 +116,15 @@ enum keyball_keycodes {
     SCRL_DVI, // Increment scroll divider
     SCRL_DVD, // Decrement scroll divider
 
-    SSNP_VRT, // Set scroll snap mode as vertical
-    SSNP_HOR, // Set scroll snap mode as horizontal
-    SSNP_FRE, // Set scroll snap mode as disable (free scroll)
-
     // Auto mouse layer control keycodes.
     // Only works when POINTING_DEVICE_AUTO_MOUSE_ENABLE is defined.
     AML_TO, // Toggle automatic mouse layer
     AML_I50, // Increment automatic mouse layer timeout
     AML_D50, // Decrement automatic mouse layer timeout
+
+    SSNP_VRT, // Set scroll snap mode as vertical
+    SSNP_HOR, // Set scroll snap mode as horizontal
+    SSNP_FRE, // Set scroll snap mode as disable (free scroll)
 
     // User customizable 32 keycodes.
     KEYBALL_SAFE_RANGE,
@@ -271,6 +271,7 @@ void keyball_set_scroll_div(uint8_t div);
 ///
 ///     CPI = (v + 1) * 100
 uint8_t keyball_get_cpi(void);
+
 
 /// keyball_set_cpi changes CPI of trackball.
 /// Valid values are between 0 to 119, and the actual CPI value is the set
