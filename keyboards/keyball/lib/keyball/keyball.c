@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdlib.h>
 #include "quantum.h"
 #ifdef SPLIT_KEYBOARD
-#    include "transactions.h"
+#include "transactions.h"
 #endif
 
 #include "keyball.h"
@@ -53,7 +53,12 @@ keyball_t keyball = {
     .scroll_mode = false,
     .scroll_div  = 0,
 
+    //.scroll_reverse = true, // add scroll_reverse
+
     .pressing_keys = { BL, BL, BL, BL, BL, BL, 0 },
+
+
+
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -193,6 +198,12 @@ __attribute__((weak)) void keyball_on_apply_motion_to_mouse_scroll(keyball_motio
     int16_t x = divmod16(&m->x, div);
     int16_t y = divmod16(&m->y, div);
 
+//     // ★ ここで反転適用
+// if (keyball_get_scroll_reverse()) {
+//     x = -x;
+//     y = -y;
+// }
+
     // apply to mouse report.
 #if KEYBALL_MODEL == 61 || KEYBALL_MODEL == 39 || KEYBALL_MODEL == 147 || KEYBALL_MODEL == 44
     r->h = clip2int8(y);
@@ -269,6 +280,8 @@ static inline bool should_report(void) {
 report_mouse_t pointing_device_driver_get_report(report_mouse_t rep) {
     // report mouse event, if keyboard is primary.
     if (is_bmp_keyboard_master() && should_report()) {
+        // Reset total motion tracker.
+        keyball.total_motion = 0;
         // modify mouse report by PMW3360 motion.
         motion_to_mouse(&keyball.this_motion, &rep, is_bmp_keyboard_left(), keyball.scroll_mode);
         motion_to_mouse(&keyball.that_motion, &rep, !is_bmp_keyboard_left(), keyball.scroll_mode ^ keyball.this_have_ball);
@@ -505,6 +518,9 @@ void keyball_oled_render_layerinfo(void) {
 
 //////////////////////////////////////////////////////////////////////////////
 // Public API functions
+uint8_t keyball_get_total_move(void) {
+    return keyball.total_motion;
+}
 
 bool keyball_get_scroll_mode(void) {
     return keyball.scroll_mode;
@@ -553,6 +569,15 @@ void keyball_set_cpi(uint8_t cpi) {
         pmw3360_cpi_set(cpi == 0 ? CPI_DEFAULT - 1 : cpi - 1);
     }
 }
+
+// add scroll_reverse 
+// bool keyball_get_scroll_reverse(void) {
+//     return keyball.scroll_reverse;
+// }
+
+// void keyball_toggle_scroll_reverse(void) {
+//     keyball.scroll_reverse = !keyball.scroll_reverse;
+// }
 
 //////////////////////////////////////////////////////////////////////////////
 // Keyboard hooks
@@ -714,6 +739,8 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             case SCRL_DVD:
                 add_scroll_div(-1);
                 break;
+
+            
 
 #if KEYBALL_SCROLLSNAP_ENABLE == 2
             case SSNP_HOR:

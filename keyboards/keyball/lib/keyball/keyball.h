@@ -125,10 +125,11 @@ enum keyball_keycodes {
     AML_TO, // Toggle automatic mouse layer
     AML_I50, // Increment automatic mouse layer timeout
     AML_D50, // Decrement automatic mouse layer timeout
-
+    
     // User customizable 32 keycodes.
     KEYBALL_SAFE_RANGE,
 };
+
 
 typedef union {
     uint32_t raw;
@@ -169,6 +170,7 @@ typedef struct {
 
     keyball_motion_t this_motion;
     keyball_motion_t that_motion;
+    uint8_t total_motion;
 
     uint8_t cpi_value;
     bool    cpi_changed;
@@ -176,6 +178,8 @@ typedef struct {
     bool     scroll_mode;
     uint32_t scroll_mode_changed;
     uint8_t  scroll_div;
+
+    // bool scroll_reverse;  // ★追加：スクロール反転フラグ
 
 #if KEYBALL_SCROLLSNAP_ENABLE == 1
     uint32_t scroll_snap_last;
@@ -234,6 +238,7 @@ void keyball_oled_render_keyinfo(void);
 /// OLED.  It shows layer mask with number (1~f) for active layers and '_' for
 /// inactive layers.
 void keyball_oled_render_layerinfo(void);
+uint8_t keyball_get_total_move(void);
 
 /// keyball_get_scroll_mode gets current scroll mode.
 bool keyball_get_scroll_mode(void);
@@ -281,3 +286,8 @@ uint8_t keyball_get_cpi(void);
 /// In addition, if you do not upload SROM, the maximum value will be limited
 /// to 34 (3500CPI).
 void keyball_set_cpi(uint8_t cpi);
+
+
+// add scroll_reverse 
+// bool keyball_get_scroll_reverse(void);
+// void keyball_toggle_scroll_reverse(void);

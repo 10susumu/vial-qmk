@@ -3,7 +3,7 @@
     "version": 3,
     "device_info": {
       "vid": "0x5957",
-      "pid": "0x0200",
+      "pid": "0x0400",
       "name": "Keyball44",
       "manufacture": "Yowkees"
     },
