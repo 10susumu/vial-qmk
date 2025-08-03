@@ -7,26 +7,30 @@
 #define _CUSTOM 1
 #define _NUMBER 2
 #define _SYMBOL 3
-#define _BLUETOOTH 4
-#define _MOUSE 5
+#define _SHORTCUT 4
+#define _BLUETOOTH 5
 #define _SCROLL 6
 
 // 長いキーをマクロに
 #define NOSPACE _______
 #define LC_LG2 LCTL_T(KC_LNG2)
 #define RC_LG1 RCTL_T(KC_LNG1)
-
 #define LS_SPC LSFT_T(KC_SPC)
 #define LT2_ENT LT(2, KC_ENT)
-
 #define LA_LEFT LALT(KC_LEFT)
 #define LA_RGHT LALT(KC_RGHT)
 #define SFT_ALT LSFT(LALT(KC_NO))
-
 #define LT2_LG1 LT(2, KC_LNG1)
 #define LT3_ENT LT(3, KC_ENT)
+#define BITWAR LSFT(LALT(KC_F))
+#define SHT_LEF LSFT(KC_LEFT)
+#define SHT_RGH LSFT(KC_RGHT)
+#define SHT_UP LSFT(KC_UP)
+#define SHT_DOW LSFT(KC_DOWN)
+#define WIN_LEF LGUI(KC_LEFT)
+#define WIN_RGH LGUI(KC_RGHT)
 
-// BLP短縮名(susumu)
+// BLP短縮名(s)
 // #define KBC_RST  KBC_RST
 #define KBC_SAV  KBC_SAVE
 #define CPI_U1H  CPI_I100
@@ -58,9 +62,9 @@
 enum custom_keycodes {
 	AMT_P1 = KEYBALL_SAFE_RANGE, // オートマウスレイヤに入る閾値を+1  他のキーコードと衝突しないように
 	AMT_M1, // オートマウスレイヤに入る閾値を-1
-	SFT_ALT2, // Shift キーと Alt キーの同時押し(susumu)
-	RUN_TTM, // テラタームマクロ実行(susumu)
-	// SCRL_REV, // スクロール方向反転
+	SFT_ALT2, // Shift キーと Alt キーの同時押し(s)
+	RUN_TTM, // テラタームマクロ実行(s)
+	SCRL_REV, // スクロール方向反転
 };
 
 // 変数定義
@@ -74,50 +78,50 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	// 0
 	[_MAIN] = LAYOUT_universal(
 		KC_ESC , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   ,        KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , KC_BSPC,
-		MO(1)  , KC_A   , KC_S   , KC_D   , KC_F   , KC_G   ,        KC_H   , KC_J   , KC_K   , KC_L   , KC_P   , MO(1)  ,
+		MO(1)  , KC_A   , KC_S   , KC_D   , KC_F   , KC_G   ,        KC_H   , KC_J   , KC_K   , KC_L   , JP_QUES, MO(1)  ,
 		MO(2)  , KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   ,        KC_N   , KC_M   , KC_BTN1, KC_BTN2, MO(6)  , MO(2)  ,
-		         KC_LGUI, KC_LALT, SFT_ALT, LC_LG2 , LS_SPC ,        LT3_ENT, LT2_LG1, NOSPACE, NOSPACE, MO(4)
+		         KC_LGUI, KC_LALT, MO(4)  , LC_LG2 , LS_SPC ,        LT3_ENT, LT2_LG1, NOSPACE, NOSPACE, MO(5)
 	),
 	// 1
 	[_CUSTOM] = LAYOUT_universal(
 		XXXXXXX, XXXXXXX, KC_F2  , KC_PGUP, KC_ENT , KC_TAB ,        KC_TAB , KC_F7  , KC_UP  , KC_ENT , XXXXXXX, XXXXXXX, 
 		XXXXXXX, XXXXXXX, KC_HOME, KC_DEL , KC_END , XXXXXXX,        KC_BSPC, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX, 
-		XXXXXXX, XXXXXXX, KC_PSCR, KC_PGDN, XXXXXXX, XXXXXXX,        JP_MINS, JP_EQL , JP_COMM, JP_DOT , JP_QUES, JP_UNDS, 
+		XXXXXXX, XXXXXXX, KC_PSCR, KC_PGDN, XXXXXXX, XXXXXXX,        JP_MINS, JP_EQL , JP_COMM, JP_DOT , JP_SLSH, XXXXXXX, 
 		         _______, _______, _______, _______, _______,        _______, _______, NOSPACE, NOSPACE, XXXXXXX
 	),
 	// 2
 	[_NUMBER] = LAYOUT_universal(
 		XXXXXXX, KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  ,        KC_1   , KC_2   , KC_3   , KC_4   , KC_5   , XXXXXXX, 
 		XXXXXXX, KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 ,        KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , XXXXXXX, 
-		XXXXXXX, KC_F11 , KC_F12 , XXXXXXX, XXXXXXX, XXXXXXX,        JP_PLUS, JP_ASTR, JP_LABK, JP_RABK, JP_SLSH, XXXXXXX, 
+		XXXXXXX, KC_F11 , KC_F12 , XXXXXXX, XXXXXXX, XXXXXXX,        JP_PLUS, JP_ASTR, JP_LABK, JP_RABK, JP_UNDS, XXXXXXX, 
 		         _______, _______, _______, _______, _______,        _______, _______, NOSPACE, NOSPACE, XXXXXXX 
 	),
 	// 3
 	[_SYMBOL] = LAYOUT_universal(
-		XXXXXXX, JP_QUOT, JP_DQUO, JP_EXLM, XXXXXXX, JP_TILD,        JP_BSLS, XXXXXXX, JP_LBRC, JP_RBRC, JP_PERC, XXXXXXX, 
-		XXXXXXX, JP_AT  , JP_SCLN, JP_DLR , XXXXXXX, JP_GRV ,        JP_HASH, XXXXXXX, JP_LPRN, JP_RPRN, JP_PIPE, XXXXXXX, 
-		XXXXXXX, XXXXXXX, XXXXXXX, JP_COLN, JP_CIRC, XXXXXXX,        JP_AMPR, XXXXXXX, JP_LCBR, JP_RCBR, XXXXXXX, XXXXXXX, 
+		XXXXXXX, JP_QUOT, JP_DQUO, JP_EXLM, XXXXXXX, JP_TILD,        JP_BSLS, JP_LBRC, JP_RBRC, XXXXXXX, JP_PERC, XXXXXXX, 
+		XXXXXXX, JP_AT  , JP_SCLN, JP_DLR , XXXXXXX, JP_GRV ,        JP_HASH, JP_LPRN, JP_RPRN, XXXXXXX, JP_PIPE, XXXXXXX, 
+		XXXXXXX, XXXXXXX, XXXXXXX, JP_COLN, JP_CIRC, XXXXXXX,        JP_AMPR, JP_LCBR, JP_RCBR, XXXXXXX, XXXXXXX, XXXXXXX, 
 		         _______, _______, _______, _______, _______,        _______, _______, NOSPACE, NOSPACE, XXXXXXX
 	),
 	// 4
+	[_SHORTCUT] = LAYOUT_universal(
+		XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,        XXXXXXX, WIN_LEF, SHT_UP , WIN_RGH, XXXXXXX, XXXXXXX, 
+		XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, BITWAR , XXXXXXX,        XXXXXXX, SHT_LEF, SHT_DOW, SHT_RGH, XXXXXXX, XXXXXXX, 
+		XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 
+		         _______, _______, _______, _______, _______,        _______, _______, NOSPACE, NOSPACE, XXXXXXX
+	),
+	// 5
 	[_BLUETOOTH] = LAYOUT_universal(
 		XXXXXXX, XXXXXXX, XXXXXXX, ADV_ID1, ADV_ID0, AD_WO_L,        AD_WO_L, ADV_ID0, ADV_ID1, XXXXXXX, XXXXXXX, TO(6)  , 
 		XXXXXXX, XXXXXXX, XXXXXXX, RUN_TTM, BATT_LV, SEL_USB,        SEL_USB, BATT_LV, RUN_TTM, XXXXXXX, XXXXXXX, XXXXXXX, 
 		XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, ENT_SLP, SEL_BLE,        SEL_BLE, ENT_SLP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 
 		         _______, _______, _______, _______, _______,        _______, _______, NOSPACE, NOSPACE, XXXXXXX
 	),
-	// 5
-	[_MOUSE] = LAYOUT_universal(
-		XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 
-		XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 
-		XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 
-		         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
-	),
 	// 6
 	[_SCROLL] = LAYOUT_universal(
 		KC_ESC , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   ,        KBC_RST, CPI_U1H, CPI_U1K, SCR_UP , SN_VRT , TO(0)  , 
 		XXXXXXX, KC_A   , KC_S   , KC_D   , KC_F   , KC_G   ,        KBC_SAV, CPI_D1H, CPI_D1K, SCR_DN , SN_FRE , XXXXXXX, 
-		XXXXXXX, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   ,        XXXXXXX, KC_BTN3, LA_LEFT, LA_RGHT, XXXXXXX, XXXXXXX, 
+		XXXXXXX, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   ,        SCR_REV, KC_BTN3, LA_LEFT, LA_RGHT, XXXXXXX, XXXXXXX, 
 		         XXXXXXX, XXXXXXX, KC_LALT, KC_LCTL, KC_SPC ,        _______, _______, NOSPACE, NOSPACE, XXXXXXX
 	),
 };
@@ -224,13 +228,13 @@ void oledkit_render_logo_user(void){
 		oled_write_P(PSTR("Number"), false);
 		break;
 		case _SYMBOL:
-		oled_write_P(PSTR("Symbol  "), false);
+		oled_write_P(PSTR("Symbol"), false);
+		break;
+		case _SHORTCUT:
+		oled_write_P(PSTR("Shortc"), false);
 		break;
 		case _BLUETOOTH:
 		oled_write_P(PSTR("Blueto"), false);
-		break;
-		case _MOUSE:
-		oled_write_P(PSTR("Mouse "), false);
 		break;
 		case _SCROLL:
 		oled_write_P(PSTR("Scroll"), false);
@@ -287,9 +291,9 @@ void oledkit_render_info_user(void) {
 		case _CUSTOM: oled_write_P(PSTR("Custom"), false); break;
 		case _MAIN: oled_write_P(PSTR("Main  "), false); break;
 		case _NUMBER: oled_write_P(PSTR("Number"), false); break;
-		case _BLUETOOTH: oled_write_P(PSTR("Blueto"), false); break;
+		case _SHORTCUT : oled_write_P(PSTR("Shortc"), false); break;
 		case _SYMBOL: oled_write_P(PSTR("Symbol"), false); break;
-		case _MOUSE: oled_write_P(PSTR("Mouse "), false); break;
+		case _BLUETOOTH: oled_write_P(PSTR("Blueto"), false); break;
 		case _SCROLL: oled_write_P(PSTR("Scroll"), false); break;
 		default: oled_write_P(PSTR("Undef "), false); break;
 	}
@@ -347,7 +351,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 	return mouse_report;
 }
 
-// カスタムキー　自作
+// カスタムキー 自作
 bool my_custom_process_record(uint16_t keycode, keyrecord_t *record) {
 	
 	// Shift キーと Alt キーの同時押し キーコードの挙動を設定
@@ -376,15 +380,14 @@ bool my_custom_process_record(uint16_t keycode, keyrecord_t *record) {
 	}
 	
 	// スクロール方向反転
-	// switch (keycode) {
-	// 	case SCRL_REV:
-	// 	if (record->event.pressed) {
-	// 		// add keyball_toggle_scroll_reverse
-	// 		keyball_toggle_scroll_reverse();
-	// 		break;
-	// 	}
-	// 	return false;
-	// }
+	switch (keycode) {
+		case SCRL_REV:
+		if (record->event.pressed) {
+			keyball_toggle_scroll_reverse();
+			break;
+		}
+		return false;
+	}
 	
 	return true; // 他のキーコードを通常通り処理
 }

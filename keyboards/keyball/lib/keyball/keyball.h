@@ -179,7 +179,7 @@ typedef struct {
     uint32_t scroll_mode_changed;
     uint8_t  scroll_div;
 
-    // bool scroll_reverse;  // ★追加：スクロール反転フラグ
+    bool scroll_reverse;  // ★追加：スクロール反転フラグ
 
 #if KEYBALL_SCROLLSNAP_ENABLE == 1
     uint32_t scroll_snap_last;
@@ -289,5 +289,5 @@ void keyball_set_cpi(uint8_t cpi);
 
 
 // add scroll_reverse 
-// bool keyball_get_scroll_reverse(void);
-// void keyball_toggle_scroll_reverse(void);
+bool keyball_get_scroll_reverse(void);
+void keyball_toggle_scroll_reverse(void);

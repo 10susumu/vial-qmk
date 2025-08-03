@@ -53,7 +53,7 @@ keyball_t keyball = {
     .scroll_mode = false,
     .scroll_div  = 0,
 
-    //.scroll_reverse = true, // add scroll_reverse
+    .scroll_reverse = true, // add scroll_reverse
 
     .pressing_keys = { BL, BL, BL, BL, BL, BL, 0 },
 
@@ -198,11 +198,11 @@ __attribute__((weak)) void keyball_on_apply_motion_to_mouse_scroll(keyball_motio
     int16_t x = divmod16(&m->x, div);
     int16_t y = divmod16(&m->y, div);
 
-//     // ★ ここで反転適用
-// if (keyball_get_scroll_reverse()) {
-//     x = -x;
-//     y = -y;
-// }
+    //     // ★ ここで反転適用
+    if (keyball_get_scroll_reverse()) {
+        x = -x;
+        y = -y;
+    }
 
     // apply to mouse report.
 #if KEYBALL_MODEL == 61 || KEYBALL_MODEL == 39 || KEYBALL_MODEL == 147 || KEYBALL_MODEL == 44
@@ -571,13 +571,13 @@ void keyball_set_cpi(uint8_t cpi) {
 }
 
 // add scroll_reverse 
-// bool keyball_get_scroll_reverse(void) {
-//     return keyball.scroll_reverse;
-// }
+bool keyball_get_scroll_reverse(void) {
+    return keyball.scroll_reverse;
+}
 
-// void keyball_toggle_scroll_reverse(void) {
-//     keyball.scroll_reverse = !keyball.scroll_reverse;
-// }
+void keyball_toggle_scroll_reverse(void) {
+    keyball.scroll_reverse = !keyball.scroll_reverse;
+}
 
 //////////////////////////////////////////////////////////////////////////////
 // Keyboard hooks
